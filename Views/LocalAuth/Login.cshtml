@@ -1,0 +1,58 @@
+@model AdminPanel.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Σύνδεση";
+    Layout = "_LoginLayout";
+}
+
+<div class="login-container">
+    <div class="card shadow-lg border-0" style="width: 400px; border-radius: 16px;">
+        <div class="card-body p-5">
+            <div class="text-center mb-4">
+                <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                <h3 class="fw-bold">Admin Panel</h3>
+                <p class="text-muted">Σύνδεση στο σύστημα</p>
+            </div>
+
+            <form asp-action="Login" method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+
+                <div asp-validation-summary="All" class="alert alert-danger" style="display:@(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">
+                        <i class="fas fa-user me-1"></i>Username
+                    </label>
+                    <input asp-for="Username" class="form-control form-control-lg" placeholder="π.χ. admin" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Password" class="form-label">
+                        <i class="fas fa-lock me-1"></i>Κωδικός
+                    </label>
+                    <input asp-for="Password" class="form-control form-control-lg" placeholder="••••••" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                    <i class="fas fa-sign-in-alt me-2"></i>Σύνδεση
+                </button>
+            </form>
+
+            <hr />
+
+            <a href="@Url.Action("SignIn", "Account")" class="btn btn-outline-dark w-100">
+                <i class="fab fa-microsoft me-2"></i>Σύνδεση με Microsoft Entra ID
+            </a>
+
+            <div class="mt-4 p-3 bg-light rounded">
+                <small class="text-muted">
+                    <strong>Demo λογαριασμοί:</strong><br />
+                    admin / admin123 (Admin - όλα τα CMS)<br />
+                    editor / editor123 (Editor - 2 CMS)<br />
+                    viewer / viewer123 (Viewer - κανένα CMS)
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

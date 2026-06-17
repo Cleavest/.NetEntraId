@@ -1,0 +1,50 @@
+{
+  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "Domain": "YOUR_DOMAIN.onmicrosoft.com",
+    "TenantId": "YOUR_TENANT_ID",
+    "ClientId": "YOUR_CLIENT_ID",
+    "ClientSecret": "YOUR_CLIENT_SECRET",
+    "CallbackPath": "/signin-oidc",
+    "SignedOutCallbackPath": "/signout-callback-oidc"
+  },
+  "CmsLinks": {
+    "Links": [
+      {
+        "Name": "WordPress CMS",
+        "Url": "https://your-wordpress-site.com/wp-admin",
+        "Description": "Διαχείριση περιεχομένου WordPress",
+        "Icon": "fab fa-wordpress",
+        "SsoEnabled": true
+      },
+      {
+        "Name": "Umbraco CMS",
+        "Url": "https://localhost:7300",
+        "Description": "Διαχείριση περιεχομένου Umbraco (Demo)",
+        "Icon": "fas fa-leaf",
+        "SsoEnabled": true
+      },
+      {
+        "Name": "Strapi CMS",
+        "Url": "https://your-strapi-site.com/admin",
+        "Description": "Headless CMS - Strapi",
+        "Icon": "fas fa-cube",
+        "SsoEnabled": true
+      },
+      {
+        "Name": "Sitecore CMS",
+        "Url": "https://your-sitecore-site.com/sitecore/shell",
+        "Description": "Enterprise CMS - Sitecore",
+        "Icon": "fas fa-globe",
+        "SsoEnabled": true
+      }
+    ]
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
