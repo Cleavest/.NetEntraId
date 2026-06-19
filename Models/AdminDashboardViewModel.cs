@@ -6,4 +6,5 @@ public class AdminDashboardViewModel
     public string UserEmail { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
     public List<CmsLink> CmsLinks { get; set; } = new();
+    public List<string> DebugClaims { get; set; } = new();
 }
