@@ -1,24 +1,24 @@
 using AdminPanel.Models;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-})
-.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-{
-    options.LoginPath = "/LocalAuth/Login";
-    options.LogoutPath = "/LocalAuth/Logout";
-})
-.AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"), 
-    openIdConnectScheme: "EntraId",
-    cookieScheme: "EntraIdCookie");
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(options =>
+    {
+        builder.Configuration.GetSection("AzureAd").Bind(options);
+        options.Events = new OpenIdConnectEvents
+        {
+            OnRemoteFailure = context =>
+            {
+                context.HandleResponse();
+                context.Response.Redirect("/");
+                return Task.CompletedTask;
+            }
+        };
+    });
 
 builder.Services.AddControllersWithViews()
     .AddMicrosoftIdentityUI();

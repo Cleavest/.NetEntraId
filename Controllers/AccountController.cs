@@ -7,9 +7,12 @@ namespace AdminPanel.Controllers;
 public class AccountController : Controller
 {
     [HttpGet]
-    public IActionResult SignIn()
+    public IActionResult SignIn(string? returnUrl = null)
     {
-        var redirectUrl = Url.Action("Index", "Home");
+        var redirectUrl = !string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)
+            ? returnUrl
+            : Url.Action("Index", "Home");
+
         return Challenge(
             new AuthenticationProperties { RedirectUri = redirectUrl },
             OpenIdConnectDefaults.AuthenticationScheme);
