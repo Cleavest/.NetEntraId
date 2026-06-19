@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,16 +20,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public new IActionResult SignOut()
+    public async Task<IActionResult> SignOut()
     {
-        var callbackUrl = Url.Action("SignedOut", "Account", values: null, protocol: Request.Scheme);
-        return SignOut(
-            new AuthenticationProperties { RedirectUri = callbackUrl },
-            OpenIdConnectDefaults.AuthenticationScheme);
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("SignedOut");
     }
 
     public IActionResult SignedOut()
     {
-        return RedirectToAction("Index", "Home");
+        return View();
     }
 }
